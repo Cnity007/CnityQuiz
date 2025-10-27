@@ -1,429 +1,429 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>คำถามสุดน่ารัก</title>
-    <style>
-        /* --- CSS STYLING --- */
-        
-        /* 1. Basic Setup & Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;700&display=swap');
-
-        :root {
-            --bg-color: #f3e5f5; 
-            --primary-color: #4a148c; 
-            --accent-color: #d81b60;   
-            --white-color: #ffffff;
-            --disabled-color: #c0c0c0;
-            --light-purple: #ede7f6;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'IBM Plex Sans Thai', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--primary-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            overflow: hidden; 
-        }
-
-        /* 2. Main Container */
-        .container {
-            background-color: var(--white-color);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            width: 100%;
-            max-width: 400px;
-            overflow: hidden;
-            text-align: center;
-            z-index: 10; 
-        }
-
-        /* 3. Stage Management */
-        .stage {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .stage.active {
-            display: flex;
-        }
-
-        /* 4. Elements Styling */
-        h1, h2 {
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-        h2 {
-            font-size: 1.25rem;
-        }
-
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        /* 5. Button Styling */
-        .btn {
-            font-family: 'IBM Plex Sans Thai', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            background-color: var(--accent-color);
-            color: var(--white-color);
-            border: none;
-            border-radius: 50px;
-            padding: 0.8rem 2.5rem;
-            cursor: pointer;
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            width: 100%;
-            max-width: 250px;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-        }
-
-        .btn:disabled {
-            background-color: var(--disabled-color);
-            cursor: not-allowed;
-            transform: scale(1);
-        }
-
-        /* 6. Input Styling */
-        .name-input {
-            font-family: 'IBM Plex Sans Thai', sans-serif;
-            font-size: 1rem;
-            padding: 0.8rem;
-            border: 2px solid var(--primary-color);
-            border-radius: 10px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .name-input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(216, 27, 96, 0.3);
-        }
-
-        /* 7. Image Styling */
-        #qrImage {
-            width: 100%;
-            max-width: 250px;
-            height: auto;
-            border-radius: 10px;
-            margin-top: 1rem;
-        }
-
-        .reveal-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            margin-top: 1rem;
-        }
-
-        /* 8. Choice Buttons Styling */
-        .choices-container {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            width: 100%;
-        }
-        
-        .choice-btn {
-            font-family: 'IBM Plex Sans Thai', sans-serif;
-            font-size: 1rem;
-            background-color: var(--white-color);
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            border-radius: 15px;
-            padding: 0.8rem 1rem;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            transition: background-color 0.2s, color 0.2s, transform 0.2s;
-        }
-
-        .choice-btn:hover {
-            background-color: var(--light-purple);
-            transform: scale(1.02);
-        }
-
-        .choice-btn.selected {
-            background-color: var(--accent-color);
-            color: var(--white-color);
-            border-color: var(--accent-color);
-        }
-
-        /* 9. Summary Styling */
-        #summary-container {
-            margin-top: 1.5rem;
-            text-align: left;
-            width: 100%;
-            border-top: 2px dashed var(--disabled-color);
-            padding-top: 1.5rem;
-        }
-
-        .summary-item {
-            margin-bottom: 1rem;
-        }
-        .summary-item p {
-            font-size: 0.9rem;
-            margin: 0.25rem 0;
-            line-height: 1.4;
-        }
-        
-
-        /* Animation Keyframes */
-        @keyframes float {
-            0% {
-                transform: translateY(0px) translateX(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) translateX(10px) rotate(10deg);
-            }
-            100% {
-                transform: translateY(0px) translateX(0px) rotate(0deg);
-            }
-        }
-
-        /* Emoji Base Style */
-        .floating-emoji {
-            position: fixed; 
-            z-index: 5;      
-            font-size: 2.5rem;
-            user-select: none; 
-            cursor: pointer;
+    <!DOCTYPE html>
+    <html lang="th">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>คำถามวัดว่าคุณรู้จักชินมากแค่ไหน</title>
+        <style>
+            /* --- CSS STYLING --- */
             
-            /* Animation */
-            animation: float 6s ease-in-out infinite;
+            /* 1. Basic Setup & Fonts */
+            @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;700&display=swap');
+
+            :root {
+                --bg-color: #f3e5f5; 
+                --primary-color: #4a148c; 
+                --accent-color: #d81b60;   
+                --white-color: #ffffff;
+                --disabled-color: #c0c0c0;
+                --light-purple: #ede7f6;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: 'IBM Plex Sans Thai', sans-serif;
+                background-color: var(--bg-color);
+                color: var(--primary-color);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                padding: 20px;
+                overflow: hidden; 
+            }
+
+            /* 2. Main Container */
+            .container {
+                background-color: var(--white-color);
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                padding: 2rem;
+                width: 100%;
+                max-width: 400px;
+                overflow: hidden;
+                text-align: center;
+                z-index: 10; 
+            }
+
+            /* 3. Stage Management */
+            .stage {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .stage.active {
+                display: flex;
+            }
+
+            /* 4. Elements Styling */
+            h1, h2 {
+                font-weight: 700;
+                color: var(--primary-color);
+            }
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+
+            /* 5. Button Styling */
+            .btn {
+                font-family: 'IBM Plex Sans Thai', sans-serif;
+                font-size: 1.2rem;
+                font-weight: 700;
+                background-color: var(--accent-color);
+                color: var(--white-color);
+                border: none;
+                border-radius: 50px;
+                padding: 0.8rem 2.5rem;
+                cursor: pointer;
+                transition: transform 0.2s ease, background-color 0.2s ease;
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .btn:hover {
+                transform: scale(1.05);
+            }
+
+            .btn:disabled {
+                background-color: var(--disabled-color);
+                cursor: not-allowed;
+                transform: scale(1);
+            }
+
+            /* 6. Input Styling */
+            .name-input {
+                font-family: 'IBM Plex Sans Thai', sans-serif;
+                font-size: 1rem;
+                padding: 0.8rem;
+                border: 2px solid var(--primary-color);
+                border-radius: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .name-input:focus {
+                outline: none;
+                border-color: var(--accent-color);
+                box-shadow: 0 0 10px rgba(216, 27, 96, 0.3);
+            }
+
+            /* 7. Image Styling */
+            #qrImage {
+                width: 100%;
+                max-width: 250px;
+                height: auto;
+                border-radius: 10px;
+                margin-top: 1rem;
+            }
+
+            .reveal-text {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--accent-color);
+                margin-top: 1rem;
+            }
+
+            /* 8. Choice Buttons Styling */
+            .choices-container {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                width: 100%;
+            }
             
-            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-            opacity: 0.7;
-        }
+            .choice-btn {
+                font-family: 'IBM Plex Sans Thai', sans-serif;
+                font-size: 1rem;
+                background-color: var(--white-color);
+                color: var(--primary-color);
+                border: 2px solid var(--primary-color);
+                border-radius: 15px;
+                padding: 0.8rem 1rem;
+                cursor: pointer;
+                width: 100%;
+                text-align: center;
+                transition: background-color 0.2s, color 0.2s, transform 0.2s;
+            }
+
+            .choice-btn:hover {
+                background-color: var(--light-purple);
+                transform: scale(1.02);
+            }
+
+            .choice-btn.selected {
+                background-color: var(--accent-color);
+                color: var(--white-color);
+                border-color: var(--accent-color);
+            }
+
+            /* 9. Summary Styling */
+            #summary-container {
+                margin-top: 1.5rem;
+                text-align: left;
+                width: 100%;
+                border-top: 2px dashed var(--disabled-color);
+                padding-top: 1.5rem;
+            }
+
+            .summary-item {
+                margin-bottom: 1rem;
+            }
+            .summary-item p {
+                font-size: 0.9rem;
+                margin: 0.25rem 0;
+                line-height: 1.4;
+            }
+            
+
+            /* Animation Keyframes */
+            @keyframes float {
+                0% {
+                    transform: translateY(0px) translateX(0px) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(-20px) translateX(10px) rotate(10deg);
+                }
+                100% {
+                    transform: translateY(0px) translateX(0px) rotate(0deg);
+                }
+            }
+
+            /* Emoji Base Style */
+            .floating-emoji {
+                position: fixed; 
+                z-index: 5;      
+                font-size: 2.5rem;
+                user-select: none; 
+                cursor: pointer;
+                
+                /* Animation */
+                animation: float 6s ease-in-out infinite;
+                
+                transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+                opacity: 0.7;
+            }
+            
+            .floating-emoji:hover {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+
         
-        .floating-emoji:hover {
-            opacity: 1;
-            transform: scale(1.2);
-        }
+            .floating-emoji.hidden {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
 
-       
-        .floating-emoji.hidden {
-            transform: scale(0) rotate(360deg);
-            opacity: 0;
-        }
+            
+            #emoji-1 { top: 15%; left: 8%; animation-delay: -1s; }
+            #emoji-2 { top: 40%; right: 10%; animation-delay: -3s; }
+            #emoji-3 { top: 70%; left: 12%; animation-delay: -5s; }
+            #emoji-4 { top: 80%; right: 15%; animation-delay: -2s; }
 
-        
-        #emoji-1 { top: 15%; left: 8%; animation-delay: -1s; }
-        #emoji-2 { top: 40%; right: 10%; animation-delay: -3s; }
-        #emoji-3 { top: 70%; left: 12%; animation-delay: -5s; }
-        #emoji-4 { top: 80%; right: 15%; animation-delay: -2s; }
+        </style>
+    </head>
+    <body>
 
-    </style>
-</head>
-<body>
+        <audio id="bgm" src="BGM.wav" loop
+            onerror="console.log('หาไฟล์ BGM.wav ไม่เจอ!')">
+        </audio>
 
-    <audio id="bgm" src="BGM.wav" loop
-        onerror="console.log('หาไฟล์ BGM.wav ไม่เจอ!')">
-    </audio>
-
-    <span class="floating-emoji" id="emoji-1">💖</span>
-    <span class="floating-emoji" id="emoji-2">✨</span>
-    <span class="floating-emoji" id="emoji-3">💜</span>
-    <span class="floating-emoji" id="emoji-4">🥰</span>
+        <span class="floating-emoji" id="emoji-1">💖</span>
+        <span class="floating-emoji" id="emoji-2">✨</span>
+        <span class="floating-emoji" id="emoji-3">💜</span>
+        <span class="floating-emoji" id="emoji-4">🥰</span>
 
 
-    <div class="container">
-        <div id="stage-1" class="stage active">
-            <h1>พร้อมตอบคำถามหรือยัง</h1>
-            <p>ถ้าพร้อมแล้วไปเริ่มกันเลย!</p>
-            <button id="playButton" class="btn">PLAY</button>
-        </div>
-
-        <div id="stage-1-5" class="stage">
-            <h2>นี่คือคำถามที่วัดว่าคุณรู้จักชินจริงๆ</h2>
-            <button id="startQuestionsButton" class="btn">เริ่มเลย!</button>
-        </div>
-
-        <div id="stage-2" class="stage">
-            <h2>ข้อ 1: คุณชื่ออะไร</h2>
-            <input type="text" id="nameInput" class="name-input" placeholder="พิมพ์ชื่อของคุณที่นี่...">
-            <button id="nameNextButton" class="btn" disabled>NEXT</button>
-        </div>
-        
-        <div id="stage-3" class="stage">
-            <h2>ข้อ 2: นี่คือคำถามง่ายๆ ถ้าชินเดินไปทางซ้ายประตูโรงเรียน 900 เมตร แล้วเดินไปทางขวาอีก 1800 เมตร ตรงไปอีก 1230 เมตร แล้วเลี้ยวไปทาง 14 นาฬิกาจากมุมล่าสุด 1234 เมตร ชินจะมีระยะการกระจัดเท่าไหร่</h2>
-            <div class="choices-container" data-question-id="q2">
-                <button class="choice-btn">ไม่รู้</button>
-                <button class="choice-btn">2401.78 เมตร</button>
-                <button class="choice-btn">อืมมมมมมม น่าจะ 3333.33 เมตร</button>
-                <button class="choice-btn">ชินไม่เดินหรอก เรียกแกร็ปไปเร็วกว่า</button>
+        <div class="container">
+            <div id="stage-1" class="stage active">
+                <h1>พร้อมตอบคำถามหรือยัง</h1>
+                <p>ถ้าพร้อมแล้วไปเริ่มกันเลย!</p>
+                <button id="playButton" class="btn">PLAY</button>
             </div>
-            <button id="q2NextButton" class="btn" disabled>NEXT</button>
-        </div>
-        
-        <div id="stage-4" class="stage">
-            <h2>ข้อ 3: จงเรียงลำดับเหตุการณ์ที่คาดว่าจะเกิดขึ้นในชีวิตชิน</h2>
-             <div class="choices-container" data-question-id="q3">
-                <button class="choice-btn">กิน > ทำงาน > เล่นเกม > นอน</button>
-                <button class="choice-btn">กิน > นอน > กิน > นอน > กิน</button>
-                <button class="choice-btn">นอน > นอน> นอน > นอน</button>
-                <button class="choice-btn">กิน > เล่นเกม> เล่นเกมต่อ > เล่นเกมอีก</button>
-            </div>
-            <button id="q3NextButton" class="btn" disabled>NEXT</button>
-        </div>
 
-        <div id="stage-5" class="stage">
-            <h2>ข้อ 4: ถ้าชินกำลังจะจมน้ำ คุณจะทำอย่างไร</h2>
-             <div class="choices-container" data-question-id="q4">
-                <button class="choice-btn">เอาห่วงยางให้</button>
-                <button class="choice-btn">ไม่ช่วย ไอ่ชินมันว่ายน้ำเป็น</button>
-                <button class="choice-btn">ซื้อเรือสปีดโบ๊ทแล้วนั่งไปจีนเพื่อซื่อเรือดำน้ำมาช่วย</button>
-                <button class="choice-btn">กลายร่างเป็นไดโนเสาร์ t-rex แล้วว่ายน้ำไปช่วย</button>
+            <div id="stage-1-5" class="stage">
+                <h2>นี่คือคำถามที่วัดว่าคุณรู้จักชินจริงๆ</h2>
+                <button id="startQuestionsButton" class="btn">เริ่มเลย!</button>
             </div>
-            <button id="q4NextButton" class="btn" disabled>NEXT</button>
-        </div>
 
-        <div id="stage-6" class="stage">
-            <h2>คุณใช่คนรู้จักของ jittipat จริงหรือไม่!!! โอนตังมาที่นี่แล้วผมจะเชื่อคุณ</h2>
-            <img src="QR.jpg" alt="QR Image" id="qrImage" onerror="this.src='https://via.placeholder.com/250x250/d81b60/ffffff?text=QR.jpg'; this.alt='กรุณาใส่รูป QR.jpg'">
-            <p class="reveal-text">แหะๆ</p>
-            <div id="summary-container">
+            <div id="stage-2" class="stage">
+                <h2>ข้อ 1: คุณชื่ออะไร</h2>
+                <input type="text" id="nameInput" class="name-input" placeholder="พิมพ์ชื่อของคุณที่นี่...">
+                <button id="nameNextButton" class="btn" disabled>NEXT</button>
+            </div>
+            
+            <div id="stage-3" class="stage">
+                <h2>ข้อ 2: นี่คือคำถามง่ายๆ ถ้าชินเดินไปทางซ้ายประตูโรงเรียน 900 เมตร แล้วเดินไปทางขวาอีก 1800 เมตร ตรงไปอีก 1230 เมตร แล้วเลี้ยวไปทาง 14 นาฬิกาจากมุมล่าสุด 1234 เมตร ชินจะมีระยะการกระจัดเท่าไหร่</h2>
+                <div class="choices-container" data-question-id="q2">
+                    <button class="choice-btn">ไม่รู้</button>
+                    <button class="choice-btn">2401.78 เมตร</button>
+                    <button class="choice-btn">อืมมมมมมม น่าจะ 3333.33 เมตร</button>
+                    <button class="choice-btn">ชินไม่เดินหรอก เรียกแกร็ปไปเร็วกว่า</button>
                 </div>
-        </div>
-    </div>
-
-    <script>
-        // --- JAVASCRIPT LOGIC ---
-
-        const stages = document.querySelectorAll('.stage');
-        
-        //data ans
-        const userAnswers = {};
-        const correctAnswers = {
-            q2: "ชินไม่เดินหรอก เรียกแกร็ปไปเร็วกว่า",
-            q3: "กิน > เล่นเกม> เล่นเกมต่อ > เล่นเกมอีก",
-            q4: "ไม่ช่วย ไอ่ชินมันว่ายน้ำเป็น"
-        };
-        const questionText = {
-            q2: "ระยะการกระจัดของชิน?",
-            q3: "ลำดับเหตุการณ์ในชีวิตชิน?",
-            q4: "ถ้าชินกำลังจะจมน้ำ?"
-        };
-
-        //next page sys
-        function showStage(stageId) {
-            stages.forEach(stage => stage.classList.remove('active'));
-            const activeStage = document.getElementById(stageId);
-            if (activeStage) {
-                activeStage.classList.add('active');
-            }
-        }
-        
-        //summary
-        function generateSummary() {
-            const container = document.getElementById('summary-container');
-            let summaryHTML = '<h3>สรุปคำตอบ</h3>';
+                <button id="q2NextButton" class="btn" disabled>NEXT</button>
+            </div>
             
-            for (const qId in correctAnswers) {
-                const userAns = userAnswers[qId] || "<i>ไม่ได้เลือกคำตอบ</i>";
-                const correctAns = correctAnswers[qId];
-                const isCorrect = userAns === correctAns;
+            <div id="stage-4" class="stage">
+                <h2>ข้อ 3: จงเรียงลำดับเหตุการณ์ที่คาดว่าจะเกิดขึ้นในชีวิตชิน</h2>
+                <div class="choices-container" data-question-id="q3">
+                    <button class="choice-btn">กิน > ทำงาน > เล่นเกม > นอน</button>
+                    <button class="choice-btn">กิน > นอน > กิน > นอน > กิน</button>
+                    <button class="choice-btn">นอน > นอน> นอน > นอน</button>
+                    <button class="choice-btn">กิน > เล่นเกม> เล่นเกมต่อ > เล่นเกมอีก</button>
+                </div>
+                <button id="q3NextButton" class="btn" disabled>NEXT</button>
+            </div>
 
-                summaryHTML += `
-                    <div class="summary-item">
-                        <p><strong>${questionText[qId]}</strong></p>
-                        <p style="color: ${isCorrect ? 'green' : 'red'};">
-                            คำตอบของคุณ: ${userAns} ${isCorrect ? '✅' : '❌'}
-                        </p>
-                        ${!isCorrect ? `<p style="color: green;">เฉลย: ${correctAns}</p>` : ''}
+            <div id="stage-5" class="stage">
+                <h2>ข้อ 4: ถ้าชินกำลังจะจมน้ำ คุณจะทำอย่างไร</h2>
+                <div class="choices-container" data-question-id="q4">
+                    <button class="choice-btn">เอาห่วงยางให้</button>
+                    <button class="choice-btn">ไม่ช่วย ไอ่ชินมันว่ายน้ำเป็น</button>
+                    <button class="choice-btn">ซื้อเรือสปีดโบ๊ทแล้วนั่งไปจีนเพื่อซื่อเรือดำน้ำมาช่วย</button>
+                    <button class="choice-btn">กลายร่างเป็นไดโนเสาร์ t-rex แล้วว่ายน้ำไปช่วย</button>
+                </div>
+                <button id="q4NextButton" class="btn" disabled>NEXT</button>
+            </div>
+
+            <div id="stage-6" class="stage">
+                <h2>คุณใช่คนรู้จักของ jittipat จริงหรือไม่!!! โอนตังมาที่นี่แล้วผมจะเชื่อคุณ</h2>
+                <img src="QR.jpg" alt="QR Image" id="qrImage" onerror="this.src='https://via.placeholder.com/250x250/d81b60/ffffff?text=QR.jpg'; this.alt='กรุณาใส่รูป QR.jpg'">
+                <p class="reveal-text">แหะๆ</p>
+                <div id="summary-container">
                     </div>
-                `;
+            </div>
+        </div>
+
+        <script>
+            // --- JAVASCRIPT LOGIC ---
+
+            const stages = document.querySelectorAll('.stage');
+            
+            //data ans
+            const userAnswers = {};
+            const correctAnswers = {
+                q2: "ชินไม่เดินหรอก เรียกแกร็ปไปเร็วกว่า",
+                q3: "กิน > เล่นเกม> เล่นเกมต่อ > เล่นเกมอีก",
+                q4: "ไม่ช่วย ไอ่ชินมันว่ายน้ำเป็น"
+            };
+            const questionText = {
+                q2: "ระยะการกระจัดของชิน?",
+                q3: "ลำดับเหตุการณ์ในชีวิตชิน?",
+                q4: "ถ้าชินกำลังจะจมน้ำ?"
+            };
+
+            //next page sys
+            function showStage(stageId) {
+                stages.forEach(stage => stage.classList.remove('active'));
+                const activeStage = document.getElementById(stageId);
+                if (activeStage) {
+                    activeStage.classList.add('active');
+                }
             }
-            container.innerHTML = summaryHTML;
-        }
+            
+            //summary
+            function generateSummary() {
+                const container = document.getElementById('summary-container');
+                let summaryHTML = '<h3>สรุปคำตอบ</h3>';
+                
+                for (const qId in correctAnswers) {
+                    const userAns = userAnswers[qId] || "<i>ไม่ได้เลือกคำตอบ</i>";
+                    const correctAns = correctAnswers[qId];
+                    const isCorrect = userAns === correctAns;
 
-        //input system
-        
-        //BGM Logic 
-        const bgm = document.getElementById('bgm');
-        let isMusicPlaying = false; 
-
-        // Stage 1 -> 1.5
-        document.getElementById('playButton').addEventListener('click', () => {
-            showStage('stage-1-5');
-            //play when play eiei
-            if (!isMusicPlaying) {
-                bgm.play();
-                isMusicPlaying = true;
+                    summaryHTML += `
+                        <div class="summary-item">
+                            <p><strong>${questionText[qId]}</strong></p>
+                            <p style="color: ${isCorrect ? 'green' : 'red'};">
+                                คำตอบของคุณ: ${userAns} ${isCorrect ? '✅' : '❌'}
+                            </p>
+                            ${!isCorrect ? `<p style="color: green;">เฉลย: ${correctAns}</p>` : ''}
+                        </div>
+                    `;
+                }
+                container.innerHTML = summaryHTML;
             }
-        });
-        
-        // Stage 1.5 -> 2
-        document.getElementById('startQuestionsButton').addEventListener('click', () => showStage('stage-2'));
 
-        // Stage 2 (Name Input)
-        const nameInput = document.getElementById('nameInput');
-        const nameNextButton = document.getElementById('nameNextButton');
-        nameInput.addEventListener('input', () => {
-            nameNextButton.disabled = nameInput.value.trim() === '';
-        });
-        nameNextButton.addEventListener('click', () => showStage('stage-3'));
+            //input system
+            
+            //BGM Logic 
+            const bgm = document.getElementById('bgm');
+            let isMusicPlaying = false; 
 
-        // Logic 
-        const choiceContainers = document.querySelectorAll('.choices-container');
-        choiceContainers.forEach(container => {
-            const questionId = container.dataset.questionId;
-            const choices = container.querySelectorAll('.choice-btn');
-            const nextButton = container.nextElementSibling;
+            // Stage 1 -> 1.5
+            document.getElementById('playButton').addEventListener('click', () => {
+                showStage('stage-1-5');
+                //play when play eiei
+                if (!isMusicPlaying) {
+                    bgm.play();
+                    isMusicPlaying = true;
+                }
+            });
+            
+            // Stage 1.5 -> 2
+            document.getElementById('startQuestionsButton').addEventListener('click', () => showStage('stage-2'));
 
-            choices.forEach(choice => {
-                choice.addEventListener('click', () => {
-                    choices.forEach(btn => btn.classList.remove('selected'));
-                    choice.classList.add('selected');
-                    userAnswers[questionId] = choice.textContent;
-                    nextButton.disabled = false;
+            // Stage 2 (Name Input)
+            const nameInput = document.getElementById('nameInput');
+            const nameNextButton = document.getElementById('nameNextButton');
+            nameInput.addEventListener('input', () => {
+                nameNextButton.disabled = nameInput.value.trim() === '';
+            });
+            nameNextButton.addEventListener('click', () => showStage('stage-3'));
+
+            // Logic 
+            const choiceContainers = document.querySelectorAll('.choices-container');
+            choiceContainers.forEach(container => {
+                const questionId = container.dataset.questionId;
+                const choices = container.querySelectorAll('.choice-btn');
+                const nextButton = container.nextElementSibling;
+
+                choices.forEach(choice => {
+                    choice.addEventListener('click', () => {
+                        choices.forEach(btn => btn.classList.remove('selected'));
+                        choice.classList.add('selected');
+                        userAnswers[questionId] = choice.textContent;
+                        nextButton.disabled = false;
+                    });
                 });
             });
-        });
 
-        //next butt
-        document.getElementById('q2NextButton').addEventListener('click', () => showStage('stage-4'));
-        document.getElementById('q3NextButton').addEventListener('click', () => showStage('stage-5'));
-        document.getElementById('q4NextButton').addEventListener('click', () => {
-            generateSummary();
-            showStage('stage-6');
-        });
-        
-        //Emoji Click 
-        const emojis = document.querySelectorAll('.floating-emoji');
-            
-        emojis.forEach(emoji => {
-            emoji.addEventListener('click', () => {
-          
-                emoji.classList.add('hidden');
-                
-           
-                setTimeout(() => {
-                    emoji.classList.remove('hidden');
-                }, 3000); 
+            //next butt
+            document.getElementById('q2NextButton').addEventListener('click', () => showStage('stage-4'));
+            document.getElementById('q3NextButton').addEventListener('click', () => showStage('stage-5'));
+            document.getElementById('q4NextButton').addEventListener('click', () => {
+                generateSummary();
+                showStage('stage-6');
             });
-        });
+            
+            //Emoji Click 
+            const emojis = document.querySelectorAll('.floating-emoji');
+                
+            emojis.forEach(emoji => {
+                emoji.addEventListener('click', () => {
+            
+                    emoji.classList.add('hidden');
+                    
+            
+                    setTimeout(() => {
+                        emoji.classList.remove('hidden');
+                    }, 3000); 
+                });
+            });
 
-    </script>
+        </script>
 
-</body>
-</html>
+    </body>
+    </html>
