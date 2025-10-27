@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำถามวัดว่าคุณรู้จักชินมากแค่ไหน</title>
+    <style>
+        /* --- CSS STYLING --- */
+        
+        /* 1. Basic Setup & Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;700&display=swap');
+
+        :root {
+            --bg-color: #f3e5f5; /* ม่วงอ่อน (Light Purple) */
+            --primary-color: #4a148c; /* ม่วงเข้ม (Dark Purple) */
+            --accent-color: #d81b60;   /* แดง/ชมพูเข้ม (Deep Pink/Red) */
+            --white-color: #ffffff;
+            --disabled-color: #c0c0c0;
+            --light-purple: #ede7f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 2. Main Container */
+        .container {
+            background-color: var(--white-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* 3. Stage Management */
+        .stage {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .stage.active {
+            display: flex;
+        }
+
+        /* 4. Elements Styling */
+        h1, h2 {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        h2 {
+            font-size: 1.25rem; /* ปรับขนาด H2 ให้พอดีกับคำถามยาวๆ */
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* 5. Button Styling */
+        .btn {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 2.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            width: 100%; /* ทำให้ปุ่ม Next เต็มความกว้าง */
+            max-width: 250px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn:disabled {
+            background-color: var(--disabled-color);
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        /* 6. Input Styling */
+        .name-input {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            font-size: 1rem;
+            padding: 0.8rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .name-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(216, 27, 96, 0.3);
+        }
+
+        /* 7. Image Styling */
+        #qrImage {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .reveal-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-top: 1rem;
+        }
+
+        /* --- NEW STYLES --- */
+
+        /* 8. Choice Buttons Styling */
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        
+        .choice-btn {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            font-size: 1rem;
+            background-color: var(--white-color);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .choice-btn:hover {
+            background-color: var(--light-purple);
+            transform: scale(1.02);
+        }
+
+        .choice-btn.selected {
+            background-color: var(--accent-color);
+            color: var(--white-color);
+            border-color: var(--accent-color);
+        }
+
+        /* 9. Summary Styling */
+        #summary-container {
+            margin-top: 1.5rem;
+            text-align: left;
+            width: 100%;
+            border-top: 2px dashed var(--disabled-color);
+            padding-top: 1.5rem;
+        }
+
+        .summary-item {
+            margin-bottom: 1rem;
+        }
+        .summary-item p {
+            font-size: 0.9rem;
+            margin: 0.25rem 0;
+            line-height: 1.4;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div id="stage-1" class="stage active">
+            <h1>พร้อมตอบคำถามหรือยัง</h1>
+            <p>ถ้าพร้อมแล้วไปเริ่มกันเลย!</p>
+            <button id="playButton" class="btn">PLAY</button>
+        </div>
+
+        <div id="stage-1-5" class="stage">
+            <h2>นี่คือคำถามที่วัดว่าคุณรู้จักชินจริงๆ</h2>
+            <button id="startQuestionsButton" class="btn">เริ่มเลย!</button>
+        </div>
+
+        <div id="stage-2" class="stage">
+            <h2>ข้อ 1: คุณชื่ออะไร</h2>
+            <input type="text" id="nameInput" class="name-input" placeholder="พิมพ์ชื่อของคุณที่นี่...">
+            <button id="nameNextButton" class="btn" disabled>NEXT</button>
+        </div>
+        
+        <div id="stage-3" class="stage">
+            <h2>ข้อ 2: นี่คือคำถามง่ายๆ ถ้าชินเดินไปทางซ้ายประตูโรงเรียน 900 เมตร แล้วเดินไปทางขวาอีก 1800 เมตร ตรงไปอีก 1230 เมตร แล้วเลี้ยวไปทาง 14 นาฬิกาจากมุมล่าสุด 1234 เมตร ชินจะมีระยะการกระจัดเท่าไหร่</h2>
+            <div class="choices-container" data-question-id="q2">
+                <button class="choice-btn">ไม่รู้</button>
+                <button class="choice-btn">2401.78 เมตร</button>
+                <button class="choice-btn">อืมมมมมมม น่าจะ 3333.33 เมตร</button>
+                <button class="choice-btn">ชินไม่เดินหรอก เรียกแกร็ปไปเร็วกว่า</button>
+            </div>
+            <button id="q2NextButton" class="btn" disabled>NEXT</button>
+        </div>
+        
+        <div id="stage-4" class="stage">
+            <h2>ข้อ 3: จงเรียงลำดับเหตุการณ์ที่คาดว่าจะเกิดขึ้นในชีวิตชิน</h2>
+             <div class="choices-container" data-question-id="q3">
+                <button class="choice-btn">กิน > ทำงาน > เล่นเกม > นอน</button>
+                <button class="choice-btn">กิน > นอน > กิน > นอน > กิน</button>
+                <button class="choice-btn">นอน > นอน> นอน > นอน</button>
+                <button class="choice-btn">กิน > เล่นเกม> เล่นเกมต่อ > เล่นเกมอีก</button>
+            </div>
+            <button id="q3NextButton" class="btn" disabled>NEXT</button>
+        </div>
+
+        <div id="stage-5" class="stage">
+            <h2>ข้อ 4: ถ้าชินกำลังจะจมน้ำ คุณจะทำอย่างไร</h2>
+             <div class="choices-container" data-question-id="q4">
+                <button class="choice-btn">เอาห่วงยางให้</button>
+                <button class="choice-btn">ไม่ช่วย ไอ่ชินมันว่ายน้ำเป็น</button>
+                <button class="choice-btn">ซื้อเรือสปีดโบ๊ทแล้วนั่งไปจีนเพื่อซื่อเรือดำน้ำมาช่วย</button>
+                <button class="choice-btn">กลายร่างเป็นไดโนเสาร์ t-rex แล้วว่ายน้ำไปช่วย</button>
+            </div>
+            <button id="q4NextButton" class="btn" disabled>NEXT</button>
+        </div>
+
+        <div id="stage-6" class="stage">
+            <h2>คุณใช่คนรู้จักของ jittipat จริงหรือไม่!!! โอนตังมาที่นี่แล้วผมจะเชื่อคุณ</h2>
+            <img src="QR.jpg" alt="QR Image" id="qrImage" onerror="this.src='https://via.placeholder.com/250x250/d81b60/ffffff?text=QR.jpg'; this.alt='กรุณาใส่รูป QR.jpg'">
+            <p class="reveal-text">แหะๆ</p>
+            <div id="summary-container">
+                </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- JAVASCRIPT LOGIC ---
+
+        const stages = document.querySelectorAll('.stage');
+        
+        // --- ข้อมูลคำตอบและเฉลย ---
+        const userAnswers = {};
+        const correctAnswers = {
+            q2: "ชินไม่เดินหรอก เรียกแกร็ปไปเร็วกว่า",
+            q3: "กิน > เล่นเกม> เล่นเกมต่อ > เล่นเกมอีก",
+            q4: "ไม่ช่วย ไอ่ชินมันว่ายน้ำเป็น"
+        };
+        const questionText = {
+            q2: "ระยะการกระจัดของชิน?",
+            q3: "ลำดับเหตุการณ์ในชีวิตชิน?",
+            q4: "ถ้าชินกำลังจะจมน้ำ?"
+        };
+
+        // --- ฟังก์ชันสำหรับเปลี่ยนหน้า ---
+        function showStage(stageId) {
+            stages.forEach(stage => stage.classList.remove('active'));
+            const activeStage = document.getElementById(stageId);
+            if (activeStage) {
+                activeStage.classList.add('active');
+            }
+        }
+        
+        // --- ฟังก์ชันสำหรับสร้างผลสรุป ---
+        function generateSummary() {
+            const container = document.getElementById('summary-container');
+            let summaryHTML = '<h3>สรุปคำตอบ</h3>';
+            
+            for (const qId in correctAnswers) {
+                const userAns = userAnswers[qId] || "<i>ไม่ได้เลือกคำตอบ</i>";
+                const correctAns = correctAnswers[qId];
+                const isCorrect = userAns === correctAns;
+
+                summaryHTML += `
+                    <div class="summary-item">
+                        <p><strong>${questionText[qId]}</strong></p>
+                        <p style="color: ${isCorrect ? 'green' : 'red'};">
+                            คำตอบของคุณ: ${userAns} ${isCorrect ? '✅' : '❌'}
+                        </p>
+                        ${!isCorrect ? `<p style="color: green;">เฉลย: ${correctAns}</p>` : ''}
+                    </div>
+                `;
+            }
+            container.innerHTML = summaryHTML;
+        }
+
+        // --- การทำงานของปุ่มและตัวเลือก ---
+
+        // Stage 1 -> 1.5
+        document.getElementById('playButton').addEventListener('click', () => showStage('stage-1-5'));
+        
+        // Stage 1.5 -> 2
+        document.getElementById('startQuestionsButton').addEventListener('click', () => showStage('stage-2'));
+
+        // Stage 2 (Name Input)
+        const nameInput = document.getElementById('nameInput');
+        const nameNextButton = document.getElementById('nameNextButton');
+        nameInput.addEventListener('input', () => {
+            nameNextButton.disabled = nameInput.value.trim() === '';
+        });
+        nameNextButton.addEventListener('click', () => showStage('stage-3'));
+
+        // Logic สำหรับปุ่มตัวเลือก (ใช้ร่วมกันทุกข้อ)
+        const choiceContainers = document.querySelectorAll('.choices-container');
+        choiceContainers.forEach(container => {
+            const questionId = container.dataset.questionId;
+            const choices = container.querySelectorAll('.choice-btn');
+            const nextButton = container.nextElementSibling; // ปุ่ม NEXT ที่อยู่ถัดไป
+
+            choices.forEach(choice => {
+                choice.addEventListener('click', () => {
+                    // ทำให้ปุ่มอื่นไม่ถูกเลือก
+                    choices.forEach(btn => btn.classList.remove('selected'));
+                    // เลือกปุ่มนี้
+                    choice.classList.add('selected');
+                    // เก็บคำตอบ
+                    userAnswers[questionId] = choice.textContent;
+                    // เปิดใช้งานปุ่ม NEXT
+                    nextButton.disabled = false;
+                });
+            });
+        });
+
+        // ปุ่ม NEXT ของแต่ละคำถาม
+        document.getElementById('q2NextButton').addEventListener('click', () => showStage('stage-4'));
+        document.getElementById('q3NextButton').addEventListener('click', () => showStage('stage-5'));
+        document.getElementById('q4NextButton').addEventListener('click', () => {
+            generateSummary(); // สร้างสรุปก่อน
+            showStage('stage-6');   // แล้วค่อยแสดงหน้าสุดท้าย
+        });
+
+    </script>
+
+</body>
+</html>
